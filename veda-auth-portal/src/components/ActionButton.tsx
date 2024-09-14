@@ -6,9 +6,10 @@ interface ActionButtonProps {
   size?: string;
   isDisabled?: boolean;
   colorScheme?: string;
+  variant?: string;
 }
 
-export const ActionButton = ({ onClick, icon, children, size, isDisabled, colorScheme }: ActionButtonProps) => {
+export const ActionButton = ({ onClick, icon, children, size, isDisabled, colorScheme, variant }: ActionButtonProps) => {
   return (
     <Button
       bg={
@@ -25,6 +26,7 @@ export const ActionButton = ({ onClick, icon, children, size, isDisabled, colorS
       size={size}
       isDisabled={isDisabled}
       colorScheme={colorScheme}
+      variant={variant}
     >
       {icon && <Icon as={icon} mr={1} fontSize='lg' />}
       {children}

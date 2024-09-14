@@ -33,6 +33,7 @@ import { Group, Member } from "../../interfaces/Groups";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TransferOwnershipModal } from "./TransferOwnershipModal";
+import { DeleteGroupModal } from "./DeleteGroupModal";
 
 interface GroupSettingsProps {
   groupId: string | undefined;
@@ -64,6 +65,7 @@ export const GroupSettings = ({ groupId }: GroupSettingsProps) => {
   const toast = useToast();
   const navigate = useNavigate();
   const transferOwnershipDisclosure = useDisclosure();
+  const deleteGroupDisclosure = useDisclosure();
 
   const customFetch = async (url: string, options?: RequestInit) => {
     const resp = await fetch(url, {
@@ -352,9 +354,23 @@ export const GroupSettings = ({ groupId }: GroupSettingsProps) => {
           currOwner={owner}
         />
 
-        <Button border="1px solid" borderColor="border.neutral.secondary">
-          Archive Group
-        </Button>
+        <ActionButton
+          onClick={deleteGroupDisclosure.onOpen}
+          colorScheme="red"
+          isDisabled={!hasOwnerPriv}
+        >
+          Delete Group
+        </ActionButton>
+
+        <DeleteGroupModal
+          isOpen={deleteGroupDisclosure.isOpen}
+          onClose={deleteGroupDisclosure.onClose}
+          groupId={groupId}
+          auth={auth}
+          navigate={navigate}
+          currOwner={owner}
+        />
+
       </Stack>
     </>
   );
